@@ -31,7 +31,7 @@ func ordinaryRead(file *os.File) {
 
 /**
 buf 一行一行读
- */
+*/
 func bufRead(file *os.File) {
 	for {
 		reader := bufio.NewReader(file)
@@ -46,9 +46,10 @@ func bufRead(file *os.File) {
 	}
 
 }
+
 /**
 根据文件名读取 会帮我们执行关闭文件
- */
+*/
 func readFromFileByIoutil(path string) {
 	ret, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -58,7 +59,7 @@ func readFromFileByIoutil(path string) {
 }
 
 func main() {
-	path := "D:\\GoWorkspace\\src\\github.com\\study\\文件\\main.go"
+	path := "D:\\GoWorkspace\\src\\github.com\\study\\文件\\server.go"
 	fileObj, err := os.Open(path)
 	if err != nil {
 		fmt.Printf("open file faield", err)
