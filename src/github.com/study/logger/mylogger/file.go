@@ -91,19 +91,19 @@ func (f *FileLogger) log(lv LogLevel, msg string) {
 			f.Close()
 			timeStamp := time.Now().Format("20060102150405")
 			logName := path.Join(f.filePath, f.fileName)
-			newLogName := fmt.Sprintf("%s.bak%s",logName,timeStamp)
-			os.Rename(logName,newLogName)
+			newLogName := fmt.Sprintf("%s.bak%s", logName, timeStamp)
+			os.Rename(logName, newLogName)
 			fileObj, err := os.OpenFile(newLogName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 			if err != nil {
-				fmt.Printf("打开文件失败%s\n",err)
+				fmt.Printf("打开文件失败%s\n", err)
 			}
 			f.fileObj = fileObj
 			fmt.Fprintf(f.fileObj, "[%s] [%s] [%s:%s:%d] %s\n", format, getLogString(lv), funcName, fileName, lineNo, msg)
-		}else {
+		} else {
 			fmt.Fprintf(f.fileObj, "[%s] [%s] [%s:%s:%d] %s\n", format, getLogString(lv), funcName, fileName, lineNo, msg)
 		}
 		if lv >= ERROR {
-			if f.checkSize(f.errObj){
+			if f.checkSize(f.errObj) {
 				/**
 				切割日志文件
 				1.关闭当前日志文件
@@ -113,11 +113,11 @@ func (f *FileLogger) log(lv LogLevel, msg string) {
 				f.Close()
 				timeStamp := time.Now().Format("20060102150405")
 				logName := path.Join(f.filePath, f.fileName)
-				newLogName := fmt.Sprintf("%s.bak%s",logName,timeStamp)
-				os.Rename(logName,newLogName)
+				newLogName := fmt.Sprintf("%s.bak%s", logName, timeStamp)
+				os.Rename(logName, newLogName)
 				fileObj, err := os.OpenFile(newLogName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 				if err != nil {
-					fmt.Printf("打开文件失败%s\n",err)
+					fmt.Printf("打开文件失败%s\n", err)
 				}
 				f.fileObj = fileObj
 				//如果要记录的日志文件大于等于ERROR级别,我还要在err中记录一遍
